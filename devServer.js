@@ -1,4 +1,4 @@
-// 通过shift+左键点击页面，在 vscode 中打开页面 html。参考 https://github.com/zhouwei1994/code-link-plugin
+// 通过 shift+左键点击页面，在 vscode 中打开页面 html。参考 https://github.com/zhouwei1994/code-link-plugin
 // 前端 get 请求当前服务发送文件路径
 const http = require("http");
 const urlParser = require("url");
@@ -50,18 +50,20 @@ server.listen(port, function () {
 // client
 function devHelper() {
   if (window.location.host.indexOf("localhost") === -1) return;
-  // 按下 CTRL + SHIFT 时点击页面，请求在 vscode 中打开 html
+  // 按下 SHIFT 时点击页面，请求在 vscode 中打开 html
   function handleKeyDown(event) {
-    event.ctrlKey &&
-      event.shiftKey &&
-      document.addEventListener("click", handleClick);
+    event.shiftKey && document.addEventListener("click", openFile);
   }
 
-  function handleClick() {
+  function removeEvent() {
+    document.removeEventListener("click", openFile);
+  }
+
+  function openFile() {
+    removeEvent();
     var pathname = window.location.pathname;
     fetch("http://localhost:3000/?pathname=" + encodeURIComponent(pathname))
       .then(function (response) {
-        document.removeEventListener("click", handleClick);
         return response.text();
       })
       .then(function (response) {
@@ -75,4 +77,5 @@ function devHelper() {
   }
 
   document.addEventListener("keydown", handleKeyDown);
+  document.addEventListener("keyup", removeEvent);
 }
