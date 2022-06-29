@@ -49,7 +49,7 @@ server.listen(port, function () {
 
 // client
 function devHelper() {
-  if (window.location.host.indexof("localhost") === -1) return;
+  if (window.location.host.indexOf("localhost") === -1) return;
   // 按下 CTRL + SHIFT 时点击页面，请求在 vscode 中打开 html
   function handleKeyDown(event) {
     event.ctrlKey &&
