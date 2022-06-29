@@ -15,12 +15,9 @@ function renameFiles(url, prefix) {
     if (err) throw err;
     // console.log(fileList, prefix);
     fileList.forEach((item, index) => {
-      const length = item.split(".").length;
-      // 获取文件后缀名
-      const type = "." + item.split(".")[length - 1];
       const oldName = item;
-      // 新名称,根据需求修改名称，可以使用正则等等
-      // 后缀可用之前的type 也可统一自定义
+      const type = item.match(/(\.\w+)/)[1]; // 获取文件后缀名 包括 .
+      // 新名称,根据需求修改名称，可以使用正则等；后缀可用之前的type 也可统一自定义
       const newName = prefix + index + type;
       console.log(url + oldName, url + newName);
       fs.rename(url + oldName, url + newName, (err) => {
@@ -51,7 +48,7 @@ async function main() {
   });
   readline.close();
   try {
-    renameFiles(path.join(p || "./"), n || "");
+    renameFiles(path.join(p + "/"), n || ""); // 补最后一级补 /。两个 // 不会报错。没有 / 路径少一级
   } catch (error) {
     console.log(error);
     process.exit(1);
