@@ -11,25 +11,20 @@ const hostname = "localhost";
 let srcRoot = "src";
 
 const server = http.createServer(function (req, res) {
-  const { method, url } = req;
-
-  if (method === "OPTIONS") {
-    setCorsHeader(res);
-  } else {
-    const urlObj = urlParser.parse(url, true);
-    const pathname = urlObj.query.pathname;
-    srcRoot = srcRoot || urlObj.query.srcRoot;
-    if (!pathname) {
-      res.end("pathname 参数没有传递");
-      return;
-    }
-    // console.log(path.join(srcRoot + pathname));
-    child_process.exec("code -r -g " + path.join(srcRoot + pathname));
-    setHeader(res);
-    res.statusCode = 200;
-
-    res.end("success\n");
+  const { url } = req;
+  setHeader(res);
+  const urlObj = urlParser.parse(url, true);
+  const pathname = urlObj.query.pathname;
+  srcRoot = srcRoot || urlObj.query.srcRoot;
+  if (!pathname) {
+    res.end("pathname 参数没有传递");
+    return;
   }
+  // console.log(path.join(srcRoot + pathname));
+  child_process.exec("code -r -g " + path.join(srcRoot + pathname));
+  res.statusCode = 200;
+
+  res.end("success\n");
 });
 
 function setHeader(res) {
@@ -49,7 +44,11 @@ server.listen(port, function () {
 
 // client
 function devHelper() {
-  if (window.location.host.indexOf("localhost") === -1) return;
+  if (
+    window.location.host.indexOf("localhost") === -1 ||
+    pathname.indexOf("mainframe") !== -1
+  )
+    return;
   // 按下 SHIFT 时点击页面，请求在 vscode 中打开 html
   function handleKeyDown(event) {
     event.shiftKey && document.addEventListener("click", openFile);
