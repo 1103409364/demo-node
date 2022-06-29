@@ -46,3 +46,33 @@ function setHeader(res) {
 server.listen(port, function () {
   console.log("服务器运行在 http://" + hostname + ":" + port + "/");
 });
+
+// client
+function devHelper() {
+  if (window.location.host.indexof("localhost") === -1) return;
+  // 按下 CTRL + SHIFT 时点击页面，请求在 vscode 中打开 html
+  function handleKeyDown(event) {
+    event.ctrlKey &&
+      event.shiftKey &&
+      document.addEventListener("click", handleClick);
+  }
+
+  function handleClick() {
+    var pathname = window.location.pathname;
+    fetch("http://localhost:3000/?pathname=" + encodeURIComponent(pathname))
+      .then(function (response) {
+        document.removeEventListener("click", handleClick);
+        return response.text();
+      })
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (err) {
+        console.warn(
+          "path:" + pathname + "打开失败" + err.message + "；devServer 未启动"
+        );
+      });
+  }
+
+  document.addEventListener("keydown", handleKeyDown);
+}
