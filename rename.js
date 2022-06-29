@@ -16,7 +16,7 @@ function renameFiles(url, prefix) {
     // console.log(fileList, prefix);
     fileList.forEach((item, index) => {
       const oldName = item;
-      const type = item.match(/(\.\w+)/)[1]; // 获取文件后缀名 包括 .
+      const type = item.match(/(\.\w+)$/)[1]; // 获取文件后缀名 包括 .
       // 新名称,根据需求修改名称，可以使用正则等；后缀可用之前的type 也可统一自定义
       const newName = prefix + index + type;
       console.log(url + oldName, url + newName);
