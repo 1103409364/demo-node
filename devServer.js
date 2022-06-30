@@ -1,4 +1,4 @@
-// 通过 shift+左键点击页面，在 vscode 中打开页面 html。参考 https://github.com/zhouwei1994/code-link-plugin
+// 通过快捷键，在 vscode 中打开页面 html。参考 https://github.com/zhouwei1994/code-link-plugin
 // 前端 get 请求当前服务发送文件路径
 const http = require("http");
 const urlParser = require("url");
@@ -42,25 +42,23 @@ server.listen(port, function () {
   console.log("服务器运行在 http://" + hostname + ":" + port + "/");
 });
 
-// client
+// client ctrl + 鼠标中键打开 html
 function devHelper() {
-  if (
-    window.location.host.indexOf("localhost") === -1 ||
-    pathname.indexOf("mainframe") !== -1
-  )
-    return;
-  // 按下 SHIFT 时点击页面，请求在 vscode 中打开 html
+  var pathname = window.location.pathname;
+
+  if (window.location.host.indexOf('localhost') === -1) return;
+
   function handleKeyDown(event) {
-    event.shiftKey && document.addEventListener("click", openFile);
+    event.ctrlKey && document.addEventListener("mousedown", openFile);
   }
 
   function removeEvent() {
-    document.removeEventListener("click", openFile);
+    document.removeEventListener("mousedown", openFile);
   }
 
-  function openFile() {
-    removeEvent();
-    var pathname = window.location.pathname;
+  function openFile(e) {
+    if (+e.button !== 1) return
+    removeEvent()
     fetch("http://localhost:3000/?pathname=" + encodeURIComponent(pathname))
       .then(function (response) {
         return response.text();
