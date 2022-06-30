@@ -57,8 +57,12 @@ function devHelper() {
   }
 
   function openFile(e) {
-    if (+e.button !== 1) return
-    removeEvent()
+    if (+e.button !== 1) {
+      return removeEvent()
+    }
+
+    e.preventDefault()
+
     fetch("http://localhost:3000/?pathname=" + encodeURIComponent(pathname))
       .then(function (response) {
         return response.text();
