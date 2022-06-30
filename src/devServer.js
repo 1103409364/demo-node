@@ -8,23 +8,19 @@ const child_process = require("child_process");
 const port = 3000;
 const hostname = "localhost";
 
-let srcRoot = "src";
-
-const server = http.createServer(function (req, res) {
+const server = http.createServer((req, res) => {
   const { url } = req;
   setHeader(res);
   const urlObj = urlParser.parse(url, true);
   const pathname = urlObj.query.pathname;
-  srcRoot = srcRoot || urlObj.query.srcRoot;
+  const srcRoot = urlObj.query.srcRoot || "src";
   if (!pathname) {
     res.end("pathname 参数没有传递");
     return;
   }
-  // console.log(path.join(srcRoot + pathname));
-  child_process.exec("code -r -g " + path.join(srcRoot + pathname));
+  child_process.exec(`code -r -g  ${path.join(srcRoot + pathname)}`);
   res.statusCode = 200;
-
-  res.end("success\n");
+  res.end("success");
 });
 
 function setHeader(res) {
@@ -35,9 +31,8 @@ function setHeader(res) {
   res.setHeader("Access-Control-Allow-Methods", "POST, PUT");
 }
 
-server.listen(port, function () {
-  // eslint-disable-next-line no-console
-  console.log("服务器运行在 http://" + hostname + ":" + port + "/");
+server.listen(port, () => {
+  console.log(`devServer running on http://${hostname}:${port}`);
 });
 
 // client ctrl + 鼠标中键打开 html
