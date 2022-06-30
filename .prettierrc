@@ -1,0 +1,8 @@
+{
+    "tabWidth": 2,
+    "htmlWhitespaceSensitivity": "ignore",
+    "endOfLine": "auto",
+    "printWidth": 105,
+    "trailing-comma": "all",
+    "singleQuote": false
+}

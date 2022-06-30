@@ -24,9 +24,7 @@ const items = [
 const avgCost = calcAvgCost(items);
 const avgCostCPU = calcAvgCost(items, (item) => item.name === "CPU");
 const avgCostB = calcAvgCost(items, (item) => item.manufacturer === "B");
-const avgCostCPUFromA = calcAvgCost(
-  items,
-  (item) => item.name === "CPU" && item.manufacturer == "A"
-);
+const avgCostCPUFromA = calcAvgCost(items, (item) => item.name === "CPU" && item.manufacturer == "A");
 
+// eslint-disable-next-line no-console
 console.log(avgCost, avgCostCPU, avgCostB, avgCostCPUFromA);

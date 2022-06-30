@@ -31,52 +31,50 @@ function setHeader(res) {
   res.setHeader("Content-Type", "text/plain;charset=utf8");
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Credentials", true);
-  res.setHeader(
-    "Access-Control-Allow-Headers",
-    "customer-header, customer-header2"
-  );
+  res.setHeader("Access-Control-Allow-Headers", "customer-header, customer-header2");
   res.setHeader("Access-Control-Allow-Methods", "POST, PUT");
 }
 
 server.listen(port, function () {
+  // eslint-disable-next-line no-console
   console.log("服务器运行在 http://" + hostname + ":" + port + "/");
 });
 
 // client ctrl + 鼠标中键打开 html
-function devHelper() {
-  var pathname = window.location.pathname;
+// function devHelper() {
+//   var pathname = window.location.pathname;
 
-  if (window.location.host.indexOf('localhost') === -1) return;
+//   if (window.location.host.indexOf('localhost') === -1) return;
 
-  function handleKeyDown(event) {
-    event.ctrlKey && document.addEventListener("mousedown", openFile);
-  }
+//   function handleKeyDown(event) {
+//     event.ctrlKey && document.addEventListener("mousedown", openFile);
+//   }
 
-  function removeEvent() {
-    document.removeEventListener("mousedown", openFile);
-  }
+//   function removeEvent() {
+//     document.removeEventListener("mousedown", openFile);
+//   }
 
-  function openFile(e) {
-    if (+e.button !== 1) {
-      return removeEvent()
-    }
+//   function openFile(e) {
+//     if (+e.button !== 1) {
+//       return removeEvent()
+//     }
 
-    e.preventDefault()
+//     e.preventDefault()
 
-    fetch("http://localhost:3000/?pathname=" + encodeURIComponent(pathname))
-      .then(function (response) {
-        return response.text();
-      })
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (err) {
-        console.warn(
-          "path:" + pathname + "打开失败" + err.message + "；devServer 未启动"
-        );
-      });
-  }
+//     fetch("http://localhost:3000/?pathname=" + encodeURIComponent(pathname))
+//       .then(function (response) {
+//         return response.text();
+//       })
+//       .then(function (response) {
+//         console.log(response);
+//       })
+//       .catch(function (err) {
+//         console.warn(
+//           "path:" + pathname + "打开失败" + err.message + "；devServer 未启动"
+//         );
+//       });
+//   }
 
-  document.addEventListener("keydown", handleKeyDown);
-  document.addEventListener("keyup", removeEvent);
-}
+//   document.addEventListener("keydown", handleKeyDown);
+//   document.addEventListener("keyup", removeEvent);
+// }
