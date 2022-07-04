@@ -1,5 +1,5 @@
-const fs = require("fs");
-const path = require("path");
+import fs from "fs";
+import path from "path";
 
 const readline = require("readline").createInterface({
   input: process.stdin,
@@ -10,13 +10,13 @@ const readline = require("readline").createInterface({
  * @param {*} url 文件路径 D:\Downloads\test\
  * @param {*} prefix 文件名前缀
  */
-function renameFiles(url, prefix) {
+function renameFiles(url: string, prefix: string) {
   fs.readdir(url, "utf8", (err, fileList) => {
     if (err) throw err;
     // console.log(fileList, prefix);
     fileList.forEach((item, index) => {
       const oldName = item;
-      const type = item.match(/(\.\w+)$/)[1]; // 获取文件后缀名 包括 .
+      const type = item.match(/(\.\w+)$/)?.[1] ?? ""; // 获取文件后缀名 包括 .
       // 新名称,根据需求修改名称，可以使用正则等；后缀可用之前的type 也可统一自定义
       const newName = prefix + index + type;
       console.log(url + oldName, url + newName);
@@ -26,10 +26,14 @@ function renameFiles(url, prefix) {
     });
   });
 }
-
-function readlinePromise(question) {
+/**
+ * readline 回调转 promise
+ * @param question
+ * @returns
+ */
+function readlinePromise(question: string): Promise<string> {
   return new Promise((resolve, reject) => {
-    readline.question(`${question}\n`, (input) => {
+    readline.question(`${question}\n`, (input: string) => {
       if (input) {
         resolve(input);
       } else {

@@ -14,7 +14,7 @@
     "build": "tsc -p .",
     "local": "sudo npm i -g && pizza",
     "local:win": "npm i -g && pizza",
-    "reinstall": "rm -rf ./node_modules ./package-lock.json && pnpm install",
+    "reinstall": "rm -rf ./node_modules ./pnpm-lock.yaml && pnpm install",
     "lint": "eslint --ext .js,.html src",
     "format": "prettier --write \"src/**/*.js\""
   },
