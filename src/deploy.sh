@@ -1,3 +1,4 @@
+#!/bin/sh
 echo '删除 dist'
 rm -rf dist
 echo '解压 dist.gz'
