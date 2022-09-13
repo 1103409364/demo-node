@@ -1,10 +1,15 @@
 // 通过快捷键，在 vscode 中打开页面 html。参考 https://github.com/zhouwei1994/code-link-plugin
 // 前端 get 请求当前服务发送文件路径
-const net = require("net");
-const http = require("http");
-const urlParser = require("url");
-const path = require("path");
-const child_process = require("child_process");
+// const net = require("net");
+// const http = require("http");
+// const urlParser = require("url");
+// const path = require("path");
+// const child_process = require("child_process");
+import http from "http";
+import net from "net";
+import { parse } from "url";
+import path from "path";
+import { exec } from "child_process";
 
 function startDevServer(port) {
   const hostname = "localhost";
@@ -12,14 +17,14 @@ function startDevServer(port) {
   const server = http.createServer((req, res) => {
     const { url } = req;
     setHeader(res);
-    const urlObj = urlParser.parse(url, true);
+    const urlObj = parse(url, true);
     const pathname = urlObj.query.pathname;
     const srcRoot = urlObj.query.srcRoot || "src";
     if (!pathname) {
       res.end("pathname 参数没有传递");
       return;
     }
-    child_process.exec(`code -r -g  ${path.join(srcRoot + pathname)}`);
+    exec(`code -r -g  ${path.join(srcRoot + pathname)}`);
     res.statusCode = 200;
     res.end("success");
   });

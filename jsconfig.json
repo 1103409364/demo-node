@@ -1,14 +1,9 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
+    "module": "NodeNext",
     "moduleResolution": "classic",
     "target": "ESNext",
     "strictFunctionTypes": true
   },
-  "exclude": [
-    "node_modules",
-    "**/node_modules/*",
-    "dist",
-    "/src/static/platform/js/lib"
-  ]
+  "exclude": ["node_modules", "**/node_modules/*", "dist", "/src/static/platform/js/lib"]
 }

@@ -1,7 +1,7 @@
-const path = require("path");
-const Client = require("ssh2").Client; // 引入ssh客户端
-const child_process = require("child_process"); // 引入子进程
-// const compressing = require("compressing"); // npm install compressing
+import path from "path";
+import { Client } from "ssh2";
+import { exec } from "child_process";
+// import compressing from "compressing"; // npm install compressing
 
 const config = {
   host: "182.43.179.137", // 服务器地址
@@ -13,7 +13,7 @@ const config = {
 async function deploy() {
   // 第一步，构建项目
   await new Promise((resolve, reject) => {
-    child_process.exec(
+    exec(
       "npm run build",
       {
         maxBuffer: 999999999, //标准输出或标准错误允许的最大数据量（单位字节）。 超出则子进程将终止并截断任何输出。

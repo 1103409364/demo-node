@@ -5,6 +5,7 @@
   "private": false,
   "author": "w",
   "license": "ISC",
+  "type": "module",
   "scripts": {
     "preinstall": "npx only-allow pnpm",
     "test": "echo \"Error: no test specified\" && exit 1",

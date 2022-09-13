@@ -1,6 +1,6 @@
-const path = require("path");
-const Client = require("ssh2").Client; // 引入ssh客户端
-const { exec } = require("child_process"); // 引入子进程
+import path from "path";
+import { Client } from "ssh2"; // 引入ssh客户端
+import { exec } from "child_process"; // 引入子进程 exec
 
 // 服务器配置
 const config = {

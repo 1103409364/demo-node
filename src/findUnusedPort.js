@@ -1,7 +1,8 @@
 // https://www.jianshu.com/p/dd435cd9c3b9
-const net = require("net");
+// const net = require("net");
+import net from "net";
 
-function findUnusedPort(port) {
+export function findUnusedPort(port) {
   const server = net.createServer().listen(port);
   return new Promise((resolve, reject) => {
     server.on("listening", () => {
@@ -32,4 +33,4 @@ async function main() {
 
 main();
 
-module.exports = findUnusedPort;
+// module.exports = findUnusedPort;

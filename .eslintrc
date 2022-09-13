@@ -8,11 +8,13 @@
   },
   "extends": ["eslint:recommended"],
   "parserOptions": {
-    "ecmaVersion": "latest"
+    "ecmaVersion": "latest",
+    "sourceType": "module",
+    "allowImportExportEverywhere": true
   },
   "plugins": ["prettier"],
   "globals": {},
-  "rules": { 
-    // "no-console": "error" 
+  "rules": {
+    // "no-console": "error"
   }
 }
