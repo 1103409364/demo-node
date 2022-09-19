@@ -11,22 +11,36 @@ const config = {
 };
 
 async function deploy() {
-  const PATH = "D:/workspace/xxx"; //项目路径
-  const PWD = "pwd"; //print the name of current directory
+  const PATH = "D:/workspace/projects-m/demo-threejs"; //项目路径
   const PKG = "mvn package -Dmaven.test.skip=true";
   process.chdir(PATH);
   const fileName = "xxx-1.0.0.jar";
   const localPath = path.resolve(process.cwd(), "./xxx/target/" + fileName);
   const remotePath = "/mnt/java/fxps/";
-  // 打包
+  // pull
   await new Promise((resolve, reject) => {
-    exec(`${PWD} && ${PKG}`, (error, stdout, stderr) => {
+    console.log("git pull...");
+    exec("git pull", (error, stdout, stderr) => {
       if (error || stderr) {
-        console.log(`error: ${error.message || stderr}`);
+        console.log(`error: ${error || stderr}`);
         reject();
         return;
       }
-      console.log(`${stdout}`);
+      console.log(stdout);
+      resolve();
+    });
+  }).catch((error) => console.error(error));
+
+  // 打包
+  await new Promise((resolve, reject) => {
+    console.log("package...");
+    exec(`${PKG}`, (error, stdout, stderr) => {
+      if (error || stderr) {
+        console.log(`error: ${error || stderr}`);
+        reject();
+        return;
+      }
+      console.log(stdout);
       resolve();
     });
   });

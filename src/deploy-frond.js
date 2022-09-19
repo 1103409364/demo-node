@@ -11,22 +11,30 @@ const config = {
 };
 
 async function deploy() {
-  // 第一步，构建项目
+  // git pull
   await new Promise((resolve, reject) => {
-    exec(
-      "npm run build",
-      {
-        maxBuffer: 999999999, //标准输出或标准错误允许的最大数据量（单位字节）。 超出则子进程将终止并截断任何输出。
-      },
-      function (err, stdout, stderr) {
-        // 子进程执行结束后的回调
-        if (err) {
-          reject(err);
-        } else {
-          resolve();
-        }
+    console.log("git pull...");
+    exec("git pull", (error, stdout, stderr) => {
+      if (error || stderr) {
+        console.log(`error: ${error || stderr}`);
+        reject();
+        return;
       }
-    );
+      console.log(stdout);
+      resolve();
+    });
+  }).catch((error) => console.error(error));
+  // 构建项目
+  await new Promise((resolve, reject) => {
+    exec("npm run build", (error, stdout, stderr) => {
+      if (error || stderr) {
+        console.log(`error: ${error || stderr}`);
+        reject();
+        return;
+      }
+      console.log(stdout);
+      resolve();
+    });
   });
 
   // 第二步，压缩目录 可以在第一步中完成，压缩为 tgz
