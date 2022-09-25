@@ -10,7 +10,7 @@ import("colors");
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const WORKSPACE = path.join(__dirname, "workspace");
+const WORKSPACE = path.join(__dirname, "../../workspace");
 const BUILD_HISTORY = path.join(WORKSPACE, "build-history.txt");
 
 class Release {

@@ -41,7 +41,7 @@ router.get("/publish", async (ctx) => {
 
   let status = "";
   try {
-    status = fse.readFileSync("./log.txt", "utf-8");
+    status = fse.readFileSync("./db.txt", "utf-8");
   } catch (e) {}
   let history = "";
   try {
@@ -66,6 +66,7 @@ router.get("/status", async (ctx) => {
   let status = "";
   try {
     status = fse.readFileSync("./db.txt", "utf-8");
+    // console.log(process.cwd()); /Users/z/workspace/project-m/demo-node
   } catch (error) {
     console.log(error);
   }
