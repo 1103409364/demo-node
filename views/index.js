@@ -9,8 +9,7 @@ const buildProjectList = [];
 
 async function getProject() {
   if (document.hidden) return;
-  const res = await fetch("/project");
-  console.log(res);
+  const res = await fetch("/project").then((res) => res.json());
   if (res.state === "ok") {
     res.project.forEach((item) => {
       buildProjectList.push(...item.branch);
@@ -22,7 +21,7 @@ async function getProject() {
 
 async function checkStatus() {
   if (document.hidden) return;
-  const res = fetch("/status");
+  const res = await fetch("/status").then((res) => res.json());
   console.log(res);
   try {
     buildHistoryList = JSON.parse(res.history);
@@ -35,7 +34,9 @@ async function checkStatus() {
 }
 
 async function build(project, branch) {
-  const res = await fetch(`/publish?project=${project}&branch=${branch}`);
+  const res = await fetch(`/publish?project=${project}&branch=${branch}`).then(
+    (res) => res.json()
+  );
   if (res.state === "ok") {
     checkStatus();
   } else {
@@ -60,7 +61,9 @@ function updateDom() {
         item.name
       }</div> <div class="log" data="${log}">${log}</div> <button ${
         isBuilding ? "disabled" : ""
-      } onclick="build('${item.project}','${item.branch}')">编译</button> </div>`;
+      } onclick="build('${item.project}','${
+        item.branch
+      }')">编译</button> </div>`;
     })
     .join("");
 }

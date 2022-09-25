@@ -13,8 +13,8 @@
     "allowImportExportEverywhere": true
   },
   "plugins": ["prettier", "html"],
-  "globals": {},
-  "rules": {
-    // "no-console": "error"
-  }
+  "globals": {}
+  // "rules": {
+  // "no-console": "error"
+  // }
 }

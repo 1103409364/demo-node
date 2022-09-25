@@ -2,15 +2,16 @@
   "compilerOptions": {
     "target": "ESNext",
     "module": "ESNext",
-    "lib": ["dom"],
     "declaration": true,
     "sourceMap": true,
     "outDir": "dist",
-    "rootDir": "src",
     "strict": true,
-    "types": ["node"],
     "esModuleInterop": true,
     "moduleResolution": "NodeNext",
+    "typeRoots": ["./types"],
     "resolveJsonModule": true
+  },
+  "ts-node": {
+    "esm": true
   }
 }

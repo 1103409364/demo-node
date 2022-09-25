@@ -1,8 +1,7 @@
 {
-    "tabWidth": 2,
-    "htmlWhitespaceSensitivity": "ignore",
-    "endOfLine": "auto",
-    "printWidth": 105,
-    "trailing-comma": "all",
-    "singleQuote": false
+  "tabWidth": 2,
+  "htmlWhitespaceSensitivity": "ignore",
+  "endOfLine": "auto",
+  "trailing-comma": "all",
+  "singleQuote": false
 }
