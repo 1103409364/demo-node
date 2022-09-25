@@ -2,7 +2,7 @@
   // Environments - which environments your script is designed to run in.
   // Each environment brings with it a certain set of predefined global variables.
   "env": {
-    "browser": false,
+    "browser": true,
     "node": true,
     "es2022": true
   },
@@ -12,7 +12,7 @@
     "sourceType": "module",
     "allowImportExportEverywhere": true
   },
-  "plugins": ["prettier"],
+  "plugins": ["prettier", "html"],
   "globals": {},
   "rules": {
     // "no-console": "error"
