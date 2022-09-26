@@ -47,8 +47,8 @@ class Release {
       console.log(`预计编译时间为${lastBuildTime}s!!!`);
     }
     await this.downloadRepo();
-    for (let i = 0, len = this.buildCommand.length; i < len; i++) {
-      await this.exec(this.buildCommand[i]);
+    for (const command of this.buildCommand) {
+      await this.exec(command);
     }
     await this.sleep(1000);
     let sourcePath = path.join(WORKSPACE, this.projectName, this.outputPath); // 编译后的本地dist目录
