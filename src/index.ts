@@ -2,6 +2,8 @@ import Koa from "koa";
 import KoaRouter from "koa-router";
 import KoaStatic from "koa-static";
 import fse from "fs-extra";
+import bodyParser from "koa-bodyparser";
+// const bodyParser = require("koa-bodyparser");
 import {
   Branch,
   branches,
@@ -12,6 +14,7 @@ import {
   projects,
 } from "./config/config.js";
 import publish from "./module/publish.js";
+import translate from "./module/translate.js";
 
 const app = new Koa();
 const router = new KoaRouter();
@@ -93,6 +96,17 @@ router.get("/project", async (ctx) => {
   };
 });
 
+router.post("/translate", async (ctx) => {
+  const reqBody = ctx.request.body as { text: string };
+  const res = await translate(reqBody.text);
+  ctx.body = res; //{ state: "ok", ...res }; 返回字符串
+});
+// body 解析中间件
+app.use(
+  bodyParser({
+    enableTypes: ["json", "form", "text"],
+  })
+);
 app.use(KoaStatic("./views"));
 app.use(router.routes());
 app.use(router.allowedMethods());
