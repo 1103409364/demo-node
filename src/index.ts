@@ -14,7 +14,7 @@ import {
   projects,
 } from "./config/config.js";
 import publish from "./module/publish.js";
-import translate from "./module/translate.js";
+import translate from "./module/youdaoTranslate.js";
 
 const app = new Koa();
 const router = new KoaRouter();
@@ -99,7 +99,7 @@ router.get("/project", async (ctx) => {
 router.post("/translate", async (ctx) => {
   const reqBody = ctx.request.body as { text: string };
   const res = await translate(reqBody.text);
-  ctx.body = res; //{ state: "ok", ...res }; 返回字符串
+  ctx.body = res.translation || [""]; //{ state: "ok", ...res }; 返回字符串
 });
 // body 解析中间件
 app.use(
