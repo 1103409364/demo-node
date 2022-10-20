@@ -38,6 +38,7 @@
     "node-xlsx": "^0.21.0",
     "path": "^0.12.7",
     "ssh2-sftp-client": "^9.0.4",
+    "tencentcloud-sdk-nodejs": "^4.0.461",
     "tunnel": "^0.0.6",
     "youdao-fanyi": "^2.0.0"
   },
