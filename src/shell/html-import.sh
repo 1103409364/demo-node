@@ -21,15 +21,19 @@ function traverseDir {
 # param type 文件类型 1 js 2 css
 function importFile {
   # 查找 html 文件
-  htmlFile="$(ls "$1" | grep .html)" # Don't use ls | grep. Use a glob or a for loop with a condition to allow non-alphanumeric filenames.
-  # # echo "html 文件 $htmlFile"
+  # Don't use ls | grep. Use a glob or a for loop with a condition to allow non-alphanumeric filenames.
+  # 建议使用 "$(ls "$1"/*.html)" 没找到会报错 ls: cannot access  'xx/lang/*.html': No such file or directory
+  # 或者使用 find。结果是完整路径
+  # htmlFile=$(find "$1" -maxdepth 1 -name "*.html")
+  # echo "html 文件 $htmlFile"
+  htmlFile="$(ls "$1" | grep .html)"
   if [ -z "$htmlFile" ]; then
     # echo "没有 hmtl"
     return
   fi
 
-  htmlFile="$1/$htmlFile"
-  echo "$htmlFile"
+  htmlFile="$1/$htmlFile" # 拼接 html 路径
+  echo "$htmlFile 已修改"
 
   if [ "$2" -eq 1 ]; then
     # 查找 .js 文件
@@ -38,6 +42,7 @@ function importFile {
     # -i: 直接修改源文件。默认不修改源文件
     # sed [选项] '[定位符]指令' 文件
     # s (substitution) 替换关键词，替换为空就是删除。  #替换 </body> 为     <script src='$jsFile'></script>\n</body>
+    # unterminated `s' command 斜杠/ 反斜杠\ 混用报错
     sed -i "s#</body>#    <script src='$jsFile'></script>\n</body>#" "$htmlFile"
   elif [ "$2" -eq 2 ]; then
     # 查找 .css 文件
