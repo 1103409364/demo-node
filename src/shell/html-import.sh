@@ -42,12 +42,13 @@ function importFile {
     # -i: 直接修改源文件。默认不修改源文件
     # sed [选项] '[定位符]指令' 文件
     # s (substitution) 替换关键词，替换为空就是删除。  #替换 </body> 为     <script src='$jsFile'></script>\n</body>
-    # unterminated `s' command 斜杠/ 反斜杠\ 混用报错
-    sed -i "s#</body>#    <script src='$jsFile'></script>\n</body>#" "$htmlFile"
+    # unterminated `s' command 斜杠/ 反斜杠\ 混用报错。
+    # 向 sed 命令添加字符串时不应使用反斜杠 \。 这会导致“unterminated s' command”错误，从而导致脚本出错。 应改用正斜杠 /` 换行使用转义
+    sed -i "s#</body>#    <script src='$jsFile'></script>\\n</body>#" "$htmlFile"
   elif [ "$2" -eq 2 ]; then
     # 查找 .css 文件
     cssFile="./$(ls "$1" | grep .css)" # 组装 href= 的内容
-    sed -i "s#</head>#    <link rel=\"stylesheet\" href='$cssFile'></link>\n</head>#" "$htmlFile"
+    sed -i "s#</head>#    <link rel=\"stylesheet\" href='$cssFile'></link>\\n</head>#" "$htmlFile"
   fi
 }
 
