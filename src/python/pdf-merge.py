@@ -1,8 +1,9 @@
 #!/usr/bin/python3
-# import logging
 import os
 import html
 from PyPDF2 import PdfReader, PdfWriter, PdfMerger
+# 合并 pdf 添加大纲
+
 # 需要安装 PyPDF2 $pip3 install PyPDF2
 file_writer = PdfWriter()
 merger = PdfMerger()
