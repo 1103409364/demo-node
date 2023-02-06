@@ -1,4 +1,5 @@
-# !/bin/bash
+#!/bin/bash
+
 # 安全相关脚本
 # HASH 值
 # HASH值与文件名称、时间、大小等信息无关，仅与内容有关
@@ -11,7 +12,7 @@ sha256sum ./bak-log.sh
 
 # 数据安全检测脚本，列出所有配置文件，计算 hash值导出
 for i in $(ls /etc/*conf); do
-  md5sum $i >>/tmp/data.log
+  md5sum "$i" >>/tmp/data.log
 done
 
 # 假设电脑被攻击，不知道哪些文件被篡改了。重新生成文件 hash 值，进行对比

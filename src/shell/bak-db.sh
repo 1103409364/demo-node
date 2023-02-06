@@ -7,12 +7,12 @@ db=mysql
 file=/tmp/$db-$(date "+%Y%m%d").sql # $() 取命令结果
 
 # 把备份文件放到 tmp。-f 判断文件存在，! 取反
-if [ ! -f $file ]; then # [ ] 和命令之间要保留空格，否则报错
+if [ ! -f "$file" ]; then # [ ] 和命令之间要保留空格，否则报错
   # mysqldump 需要安装 mariadb 和 mariadb-server
   # yum install -y mariadb mariadb-server
   # 启动服务
   # systemctl start mariadb
-  mysqldump -u$iuser -p$padd $db >$file # -p等效于--password="$pass"
+  mysqldump -u$iuser -p$padd $db >"$file" # -p等效于--password="$pass"
 fi
 # 把脚本放到计划任务实现定时备份
 

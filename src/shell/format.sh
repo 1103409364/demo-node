@@ -1,4 +1,4 @@
-# !/bin/bash
+#!/bin/bash
 # 格式化输出
 # BEGIN开始的时候打印标题，打印 1 3 6 列，直到最后一行。column -t 排版命令 -t 就是 tab
 awk -F: 'BEGIN{print "用户名 UID home目录"} {print $1, $3, $6}' /etc/passwd | column -t
@@ -20,5 +20,5 @@ awk -v x=$hello 'BEGIN{print x}'
 # 从/etc/shadow中提取账户对应的密码
 USER=$(awk -F: '/bash$/{print $1}' /etc/passwd) # bash 结尾的是可以登录的用户，保存到 USER
 for i in $USER; do
-  awk -F: -v username=$i '$1==username {print $1,$2}' /etc/shadow # 第一列是 root 打出第二列 密码
+  awk -F: -v username="$i" '$1==username {print $1,$2}' /etc/shadow # 第一列是 root 打出第二列 密码
 done

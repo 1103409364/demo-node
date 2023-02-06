@@ -9,14 +9,14 @@ echo -e "#\e[36m 5.查看账户信息\e[0m           #"
 echo -e "\033[42m-------------------------\033[0m"
 echo
 
-read -p "请选择[1-5]：" i
+read -r -p "请选择[1-5]：" i
 case $i in
 1)
   ifconfig | head -2
   ;; # case 命令序列最后必须以双分号结尾
 2)
   mem=$(free | grep Mem | tr -s " " | cut -d" " -f7) # tr 删除空格
-  echo "剩余内存：${men}K."
+  echo "剩余内存：${mem}K."
   ;;
 3)
   free=$(df | grep /$ | tr -s "" | cut -d "" -f4)
@@ -28,6 +28,7 @@ case $i in
   ;;
 5)
   login_num=$(who | wc -l)
+  # Useless cat. Consider 'cmd < file | ..' or 'cmd file | ..' instead.shellcheck
   total_num=$(cat /ect/passwd | wc -l)
   echo "当前系统账户为：$USER"
   echo "当前登录系统账户数：$login_num"

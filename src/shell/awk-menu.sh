@@ -12,7 +12,7 @@ echo -e "\033[42m-------------------------\033[0m"
 echo
 
 while :; do
-  read -p "请选择 [1-7]：" i
+  read -r -p "请选择 [1-7]：" i
   case $i in
   1)
     free -m | awk '/Mem/{print $NF " MB"}'
@@ -27,7 +27,7 @@ while :; do
     ps aux | wc -l # wc 统计
     ;;
   5)
-    ps aux | grep java
+    pgrep java
     ;;
   6)
     sed -n '$=' /etc/passwd # 最后一行行号。$ 最后一行，= 打印
