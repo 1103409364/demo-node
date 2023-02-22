@@ -44,6 +44,13 @@ function checkHtml {
   # 查找匹配的字符串并保存到数组
   htmlFns=($(grep -oE "$PATTERN" "$htmlFile"))
 
+  htmlFnsLen="${#htmlFns[@]}"
+  # echo "$htmlFnsLen"
+
+  if [ "$htmlFnsLen" -eq 0 ]; then
+    return
+  fi
+
   for match in "${htmlFns[@]}"; do
     fn=$(echo "$match" | grep -oP '\w+(?=")') # 取方法名
     fnCount=0
