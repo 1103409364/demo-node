@@ -5,10 +5,10 @@
 # param path 目录
 # param type 文件类型 1 js 2 css
 function traverseDir {
+  importFile "$1" "$2"
   for item in "$1"/*; do
     if [ -d "$item" ]; then
       # echo "$item is a directory"
-      importFile "$item" "$2"
       traverseDir "$item" "$2"
       # else
       # echo "$item is not a directory"
