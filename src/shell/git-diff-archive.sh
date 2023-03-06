@@ -30,7 +30,8 @@ done
 
 # 输出路径
 file=$(pwd)/$bugNo.zip
-if git archive -o "$file" "$commitHash" "$(git diff --name-only "$commitHash^!")"; then
+# git archive -o c:/Users/yourusername/Desktop/export.zip NewCommitId $(git diff --name-only OldCommitId NewCommitId)
+if git archive -o "$file" "$commitHash" $(git diff --name-only $commitHash^!); then #Quote this to prevent word splitting. 修复后导出报错
   echo -e "#\e[34m 导出成功：$file \e[0m"
 else
   echo -e "#\e[35m 导出失败，请检查参数 \e[0m"
